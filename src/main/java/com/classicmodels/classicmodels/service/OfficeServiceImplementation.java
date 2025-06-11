@@ -6,41 +6,36 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OfficeServiceImplementation implements  OfficeService {
     private final OfficeRepository officeRepository;
-    //private Logger log;
 
-
-//    @Override
-//    public Office saveOffice(Office office) {
-//        office.setOfficeCode(generateOfficeId());
-//        return officeRepository.save(office);
-//    }
 
     @Override
     public Office saveOffice(Office office) {
-        office.setOfficeCode(generateOfficeId());
-        log.info("\nSaving office with code: {}", office.getOfficeCode());
+
+        String generatedCode = generateOfficeId();
+
+        office.setOfficeCode(generatedCode);
+
+        log.error("Office code generated code is {} {}", generatedCode, office.getPostalCode() );
         return officeRepository.save(office);
     }
 
-
     @Override
     public String generateOfficeId() {
-        String officeCode =  "OFF"+ String.valueOf(System.currentTimeMillis());
-        if (officeCode.length() > 10) {
-            return officeCode.substring(0, 10);
-        } else {
-            return officeCode;
-        }
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 7);
+        return "OFF" + uuid; // Ensures length <= 10 (OFF + 7 chars)
     }
 
-//    @Override
-//    public String generateOfficeId() {
-//        return "OFF-"+ String.valueOf(System.currentTimeMillis());
-//    }
-
+    @Override
+    public List<Office> getAllOffices() {
+        return officeRepository.findAll();
+    }
 }

@@ -23,4 +23,18 @@ public class Productline {
     @Column(name = "image")
     private byte[] image;
 
+    /*
+    product line -> p0001
+    Text Description -> Beauty Products.
+    html description -> <p>Beauty Products.</p>
+    image -> https://www.classicmodels.com/images/productlines/beauty-products.jpg
+
+
+    product line -> p
+    Text Description -> Beauty Products.
+    html description -> <p>Beauty Products.</p>
+    image -> https://www.classicmodels.com/images/productlines/beauty-products.jpg
+
+     */
+
 }
