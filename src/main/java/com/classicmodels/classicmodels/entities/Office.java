@@ -16,7 +16,8 @@ import lombok.Setter;
 @Table(name = "offices")
 public class Office {
 
-    @Id
+    @Id //Primary key
+    @GeneratedValue (strategy = GenerationType.IDENTITY) // Auto-increment
     @Column(name = "officeCode", nullable = false, length = 10)
     private String officeCode; //FF0fY
 
